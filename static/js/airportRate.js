@@ -14,7 +14,7 @@ const getDest = async()=> {
 
     let domain = window.location.hostname;
 
-    const destUrl = `https://${domain}/users/airportDest?dest=${fromCity.value}`;
+    const destUrl = `https://${domain}/airportDest?dest=${fromCity.value}`;
 
 
     const response = await fetch(destUrl)
