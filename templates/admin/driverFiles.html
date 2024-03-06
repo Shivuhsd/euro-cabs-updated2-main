@@ -6,8 +6,10 @@
 
 {% block content %}
 <br>
-
-<h4>Driver Applications</h4>
+<div class="d-flex" style="justify-content: space-between;">
+  <h4>Driver Applications</h4>
+  <a href="{% url 'adddriver' %}"><button class="btn btn-primary">Add Driver</button></a>
+</div>
 
 <div class="container my-4">
     <table class="table">
@@ -29,7 +31,11 @@
 </div>
 
 <div class="container my-4 mt-5 shadow p-3" style="border: 1px solid black;">
-  <h3>Availabe Drivers</h3>
+  
+    <h3>Availabe Drivers</h3>
+    
+  </div>
+  
   <table class="table">
       <thead>
         <tr>

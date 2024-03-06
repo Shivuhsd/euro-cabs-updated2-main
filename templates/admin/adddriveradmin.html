@@ -1,0 +1,50 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block active %}{%endblock%}
+{% block driverApp %} active {%endblock%}
+
+{% block content %}
+<br>
+
+<h2>Add Driver</h2>
+
+<div class="container">
+    <h3>Driver Details</h3>
+    <br>
+    <br>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <div class="info">
+                {% csrf_token %}
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+                <br>
+        
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" required>
+        
+                <br>
+        
+                <label for="phone">Phone Number</label>
+                <input type="text" name="phone" id="phone" required>
+       
+        </div>
+
+        <div class="files mt-3">
+                {{form.as_p}}
+                <button class="btn btn-dark" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+   
+<script>
+
+  const forms = document.querySelectorAll('input')
+  for(let i of forms)
+  {
+      i.className = 'form-control'
+  }
+
+</script>
+   
+{% endblock %}

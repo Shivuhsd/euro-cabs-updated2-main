@@ -28,5 +28,9 @@ urlpatterns = [
     path('editfleet/<str:pk>/', views.EditFleet, name='editfleet'),
     path('deletefleet/<str:pk>/', views.DeleteFleet, name='deletefleet'),
     path('ongoing/', views.onGoing, name='ongoing'),
-    path('resolved/<str:pk>/', views.Resolved, name='resolved')
+    path('resolved/<str:pk>/', views.Resolved, name='resolved'),
+    path('adddriver/', views.Adddriver, name='adddriver'),
+
+    #Path which sends email to other company
+    path('expiry/<str:pk>/<str:email>/', views.ExpiryMail, name='expirymail'),
 ]

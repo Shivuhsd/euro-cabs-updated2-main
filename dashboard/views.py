@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 import users.models
+import users.custom
+import users.forms
 import accounts.models
 from . models import businessForm, Fleet, ReplyCus, Airports, City, Rates
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from .forms import MyFleets, MyReply, MyAirport, MyCity, MyRates
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
-from . utils import SendMail, DuplicateRoute
+from . utils import SendMail
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
 
@@ -543,3 +545,51 @@ def DeleteRoute(request, pk):
     data.delete()
     messages.success(request, "Route Deleted Successfully...")
     return redirect('addAirports')
+
+
+# A FUNCTION FOR ADDING A DRIVER BY ADMIN
+
+def Adddriver(request):
+    form = users.forms.MyDriver
+    if request.method == 'POST':
+        email = request.POST['email']
+        name = str(request.POST['name'])
+        phone = str(request.POST['phone'])
+        try:
+            password = users.custom.generate_unique_random_numbers(10)
+            data = accounts.models.CustomUser.objects.create_user(username=email, email=email, password=password, is_active = True, first_name = name)
+
+            form = accounts.models.ExtendUser(phone_number = phone, id_user = data, phone_code = "+91")
+            form.save()
+            
+            subject = "Driver Application Status"
+            mess = "Hi, "+name+ "/nYou have Selected as a Driver at EuroCabs /n/n"+"Account Details:/n email: "+ email +"/nPassword: "+password +"/n/nDo Not Share This Password With Anyone Else.../n/nThank You"
+            
+            SendMail(email, mess, subject)
+
+            data = users.forms.MyDriver(request.POST, request.FILES)
+            if data.is_valid():
+                obj = data.save(commit=False)
+                obj.driver_id = request.user
+                obj.all_files_flag = True
+                obj.save()
+                return redirect('driverFiles')
+            else:
+                messages.error(request, 'Something Went Wrong')
+        except:
+            messages.error(request, "User With This Email Already Exists...")
+    context = {
+        'form':form
+    }
+    return render(request, 'admin/adddriveradmin.html', context)
+
+
+def ExpiryMail(request, pk, email):
+    data = Fleet.objects.get(id = pk)
+    # email = email
+    subject = "Regarding the Expiry of the Vehicle Documents"
+    message = "Hello, From 'Eurocabs.uk' "+ "\n\nPlate Number: " + str(data.Plate_Number) + "\n\nMake or Model: " + str(data.Make_or_Model) + "\n\nPH or HC: "+ str(data.PH_or_HC) + "\n\nNumber Plate: " + str(data.Number_Plate) + "\n\nColor: "+ str(data.Color) + "\n\nPlate Expiry Date: "+ str(data.Plate_Expiry_Date) + "\n\nMOT Expiry Date: " + str(data.MOT_Expiry_Date) + "\n\nThank You"
+
+    SendMail(email, message, subject)
+
+    return JsonResponse({"status":"ok"})
