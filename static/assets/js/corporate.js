@@ -18,6 +18,58 @@ faqItems.forEach((item) => {
   });
 });
 
+// form code
+let currentStep = 1;
+const totalSteps = 3;
+
+// Show initial step on page load
+document.getElementById("step1").style.display = "block";
+
+function nextStep() {
+  const currentSection = document.getElementById(`step${currentStep}`);
+  if (currentStep < totalSteps) {
+    currentSection.style.display = "none";
+    currentStep++;
+    document.getElementById(`step${currentStep}`).style.display = "block";
+
+    if (currentStep === totalSteps) {
+      document.getElementById("submitBtn").style.display = "block";
+      document.getElementById("nextBtn").style.display = "none";
+    }
+  }
+}
+
+// slider code
+
+let slideIndex = 0;
+
+function showSlides() {
+  const slides = document.querySelectorAll(".slide");
+  if (slideIndex >= slides.length) {
+    slideIndex = 0;
+  } else if (slideIndex < 0) {
+    slideIndex = slides.length - 1;
+  }
+
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].classList.remove("active");
+  }
+
+  slides[slideIndex].classList.add("active");
+}
+
+function changeSlide(n) {
+  slideIndex += n;
+  showSlides();
+}
+
+setInterval(() => {
+  slideIndex++;
+  showSlides();
+}, 3000);
+
+showSlides();
+
 gsap.from(".navbar", {
   y: -50,
   duration: 1,

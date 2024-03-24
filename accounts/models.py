@@ -21,3 +21,9 @@ class ExtendUser(models.Model):
 
     def __str__(self):
         return self.phone_number
+    
+class AdminKey(models.Model):
+    id = models.UUIDField(primary_key = True, editable = False, default = uuid.uuid4)
+    key = models.CharField(max_length = 100, blank = True)
+
+

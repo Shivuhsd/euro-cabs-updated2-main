@@ -7,5 +7,3 @@ def generate_unique_random_numbers(count):
     for i in numbers:
         id = id + str(i)
     return id
-
-print(generate_unique_random_numbers(8))

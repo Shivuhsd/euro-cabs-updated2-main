@@ -1,0 +1,38 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block active %}{%endblock%}
+{% block airport %} active {%endblock%}
+
+{% block content %}
+
+<div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-dark">Update</button>
+    </form>
+</div>
+
+<script>
+    let city = document.getElementById('id_city')
+    // city.setAttribute('disabled','');
+    city.className = 'form-control'
+
+    document.getElementById('id_dayRate').className = 'form-control'
+    document.getElementById('id_nightRate').className = 'form-control'
+    let airport = document.getElementById('id_airport')
+    // airport.setAttribute('disabled', '');
+    airport.className = 'form-control'
+
+    document.getElementById('id_Color').className = 'form-control'
+    document.getElementById('id_Plate_Expiry_Date').className = 'form-control'
+    document.getElementById('id_MOT_Expiry_Date').className = 'form-control'
+
+    document.getElementById('id_Plate_Expiry_Date').setAttribute('type', 'date')
+    document.getElementById('id_MOT_Expiry_Date').setAttribute('type', 'date')
+
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Montserrat:wght@200;300;400;700;800&family=Roboto:wght@300;400&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Montserrat", sans-serif;
+            text-transform: capitalize;
+            color: #000000;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        form {
+            width: 80%;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="file"],
+        input[type="number"] {
+            margin-bottom: 16px;
+            border: 1px solid #000000;
+            padding: 7px;
+            width: 100%;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+            border: 1px solid #000000;
+            padding: 7px;
+        }
+
+        .column {
+            grid-column: span 1;
+            margin-right: 30px;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        button {
+            margin-top: 50px;
+            width: 15%;
+            background-color: #000000;
+            color: #ffffff;
+            transition: 0.5s ease;
+            padding: 8px 0;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 600px) {
+            form {
+                width: 80%;
+                margin-top: 50px;
+                margin-bottom: 100px;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            button {
+                width: 33%;
+            }
+        }
+    </style>
+    <title>Driver Login</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/new-logo.png">
+</head>
+
+<body>
+    <h1 style="text-align: center; margin-top: 50px;">Driver Document Upload </h1>
+    <form id="uploadForm" action="#" method="post">
+        <!-- First 5 inputs on the right -->
+        <div class="column">
+            <label for="profilePhoto">Profile Photo:</label>
+            <input type="file" id="profilePhoto" name="profilePhoto">
+
+            <label for="drivingLicense">DVLA Driving License:</label>
+            <input type="file" id="drivingLicense" name="drivingLicense">
+
+            <label for="checkCode">DVLA Check Code:</label>
+            <input type="Number" id="checkCode" name="checkCode">
+
+            <label for="driverBadge">Private Hire Driver Badge:</label>
+            <input type="file" id="driverBadge" name="driverBadge">
+
+            <label for="vehicleLicense">Private Hire Driver License:</label>
+            <input type="file" id="vehicleLicense" name="vehicleLicense">
+        </div>
+
+        <!-- Next 5 inputs on the left -->
+        <div class="column">
+            <label for="driverBadge">Private Hire Driver Badge:</label>
+            <input type="file" id="driverBadge" name="driverBadge">
+
+            <label for="vehicleLicense">Private Hire Driver License:</label>
+            <input type="file" id="vehicleLicense" name="vehicleLicense">
+
+            <label for="vehicleLicense">Private Hire Vehicle License:</label>
+            <input type="file" id="vehicleLicense" name="vehicleLicense">
+
+            <label for="motCertificate">MOT Test Certificate:</label>
+            <input type="file" id="motCertificate" name="motCertificate">
+
+            <label for="insuranceCertificate">Vehicle Insurance Certificate:</label>
+            <input type="file" id="insuranceCertificate" name="insuranceCertificate">
+        </div>
+
+        <!-- Checkboxes and Submit Button -->
+        <div class="full-width">
+            <!-- <label>
+                <input type="checkbox" id="allFilesFlag" name="allFilesFlag"> All files flag
+            </label>
+
+            <label>
+                <input type="checkbox" id="acceptFlag" name="acceptFlag"> Accept flag
+            </label> -->
+
+            <button type="button">Upload</button>
+        </div>
+    </form>
+
+</body>
+
+</html>

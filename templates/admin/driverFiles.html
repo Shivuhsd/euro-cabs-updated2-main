@@ -6,8 +6,10 @@
 
 {% block content %}
 <br>
-
-<h4>Driver Applications</h4>
+<div class="d-flex" style="justify-content: space-between;">
+  <h4>Driver Applications</h4>
+  <a href="{% url 'adddriver' %}"><button class="btn btn-primary">Add Driver</button></a>
+</div>
 
 <div class="container my-4">
     <table class="table">
@@ -18,7 +20,7 @@
           </tr>
         </thead>
         <tbody>
-            {% for i in data %}
+          {% for i in data %}
           <tr>
             <th>{{i.driver_id.email}}</th>
             <td><a href="{% url 'driverFilesView' i.driver_id.id %}"><div class="btn btn-dark">Open</div></a></td>
@@ -26,6 +28,30 @@
           {% endfor %}
         </tbody>
       </table>
+</div>
+
+<div class="container my-4 mt-5 shadow p-3" style="border: 1px solid black;">
+  
+    <h3>Availabe Drivers</h3>
+    
+  </div>
+  
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Email</th>
+          <th scope="col">Open</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in drivers %}
+        <tr>
+          <th>{{i.driver_id.email}}</th>
+          <td><a href="{% url 'driverFilesView' i.driver_id.id %}"><div class="btn btn-dark">Open</div></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 </div>
    
 <script>

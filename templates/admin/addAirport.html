@@ -7,22 +7,85 @@
 {% block content %}
 <br>
 <h4>Airport Rates</h4>
-   <div class="container mt-2 p-5">
-      <form method="POST">
-         {% csrf_token %}
-         <input type='text' class='form-control my-4' placeholder = 'Airport Name' name='airportName'>
-         <button class="btn btn-dark">Add</button>
-   </form>
 
-   <p class="my-3">Airports</p>
-   <ul class="list-group my-3">
-      {% for name in data %}
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        {{name.airportName}}
-        <span><a href="{% url 'cityManage' name.id %}"><button class="btn btn-primary">Manage</button></a></span>
-      </li>
-      {% endfor %}
-    </ul>
+<div class="row">
+   
+   <div class="col-md">
+      <div class="border border-dark shadow" style="height: 400px; overflow-y: auto;">
+         <p style="font-size: larger;" class="shadow py-2 text-center">Airports</p>
+         <form method="POST" class="px-4">
+            {% csrf_token %}
+            <input type='text' class='form-control my-4' placeholder = 'Airport Name' name='airportName' required>
+            <button class="btn btn-dark">Add</button>
+      </form>
+   
+      <p class="my-3 px-4">Airports</p>
+      <ul class="list-group my-3 px-4">
+         {% for name in airports %}
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+           {{name.name}}
+           <span><a href="{% url 'airportManage' name.id %}"><button class="btn btn-primary">Manage</button></a></span>
+         </li>
+         {% endfor %}
+       </ul>
+      </div>
    </div>
+
+
+   <div class="col-md">
+      <div class="border border-primary shadow" style="height: 400px; overflow-y: auto;">
+         <p style="font-size: larger;" class="shadow py-2 text-center">Towns</p>
+         <form method="POST" action="{% url 'addcity' %}" aria-required="true" class="px-4">
+            {% csrf_token %}
+            <input type='text' class='form-control my-4' placeholder = 'City Name' name='cityName' required>
+            <button class="btn btn-dark">Add</button>
+      </form>
+   
+      <p class="my-3 px-4">Cities</p>
+      <ul class="list-group my-3 px-4">
+         {% for name in cities %}
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+           {{name.name}}
+           <span><a href="{% url 'cityManage' name.id %}"><button class="btn btn-primary">Manage</button></a></span>
+         </li>
+         {% endfor %}
+       </ul>
+      </div>
+   </div>
+</div>
+
+
+<div class="border border-warning my-5 shadow py-4">
+   <a href="{% url 'createRoute' %}"><button class="btn btn-primary my-5 mx-4">Create a Route</button></a>
+   
+   <div class="container mx-2">
+      <table class="table">
+         <thead>
+           <tr>
+             <th scope="col">Airport</th>
+             <th scope="col">Town</th>
+             <th scope="col">Day Price</th>
+             <th scope="col">Night Price</th>
+             <th scope="col">Edit</th>
+             <th scope="col">Delete</th>
+           </tr>
+         </thead>
+         <tbody>
+            {% for route in routes %}
+           <tr>
+             <th scope="row">{{route.airport.name}}</th>
+             <td>{{route.city.name}}</td>
+             <td>{{route.dayRate}}</td>
+             <td>{{route.nightRate}}</td>
+             <td><a href="{% url 'editroute' route.id %}"><button class="btn btn-primary">Edit</button></a></td>
+             <td><a href="{% url 'deleteroute' route.id %}"><button class="btn btn-danger">Delete</button></a></td>
+           </tr>
+           {% endfor %}
+         </tbody>
+       </table>
+   </div>
+</div>
+
+   
    
 {% endblock %}
