@@ -33,4 +33,5 @@ urlpatterns = [
 
     #Path which sends email to other company
     path('expiry/<str:pk>/<str:email>/', views.ExpiryMail, name='expirymail'),
+    path('fleetmail/<str:pk>/', views.FleetMail, name='fleetmail'),
 ]

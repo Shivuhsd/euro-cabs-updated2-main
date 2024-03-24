@@ -1,3 +1,5 @@
+from django.core.mail import EmailMessage
+from io import BytesIO
 from django.shortcuts import render, redirect
 from django.urls import reverse
 import users.models
@@ -5,7 +7,7 @@ import users.custom
 import users.forms
 import accounts.models
 from . models import businessForm, Fleet, ReplyCus, Airports, City, Rates
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from .forms import MyFleets, MyReply, MyAirport, MyCity, MyRates
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -13,6 +15,10 @@ from datetime import datetime, timedelta
 from . utils import SendMail
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
+from django.template.loader import render_to_string
+import os
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 
 # Create your views here.
@@ -593,3 +599,76 @@ def ExpiryMail(request, pk, email):
     SendMail(email, message, subject)
 
     return JsonResponse({"status":"ok"})
+
+from django import forms
+class FileUploadForm(forms.Form):
+    files = forms.FileField(widget=forms.TextInput(attrs={"name": "images",
+            "type": "File",
+            "class": "form-control",'multiple': True}))
+
+
+def FleetMail(request, pk):
+    data = Fleet.objects.get(id = pk)
+    form = FileUploadForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        mail = request.POST['email']
+        sub = request.POST['subject']
+        mes = request.POST['message']
+        uploaded_files = request.FILES.getlist('files')
+       
+        try:
+            request.POST['include']
+            inlcude = request.POST['include']
+        except:
+            inlcude = "off"
+        
+
+        template = get_template('admin/mail.html')
+        html = template.render({'data': data})
+
+        # Create a PDF
+        pdf_file = BytesIO()
+        pisa_status = pisa.CreatePDF(html, dest=pdf_file)
+        if pisa_status.err:
+            return HttpResponse('Error generating PDF: %s' % pisa_status.err)
+
+        # Send email with PDF attachment
+        subject = sub
+        message = mes
+        email = EmailMessage(subject, message, 'eurocabs.uk', [mail])
+        for file in uploaded_files:
+            email.attach(file.name, file.read(), file.content_type)
+        if inlcude == "on":
+            email.attach('Vehicle_info.pdf', pdf_file.getvalue(), 'application/pdf')
+        email.send()
+
+       
+    #     # To Create a data in html file
+    #     html_content = render_to_string('admin/mail.html', {'data':data})
+
+
+    #     # Creating a temporary html file to render html file
+    #     pdf_content = HTML(string=html_content).write_pdf()
+
+    # # Create a temporary PDF file
+    #     pdf_file_path = os.path.join(settings.BASE_DIR, 'temp.pdf')
+    #     with open(pdf_file_path, 'wb') as pdf_file:
+    #         pdf_file.write(pdf_content)
+
+    #     # Send PDF via email
+    #     subject = sub
+    #     message = mes
+    #     email = EmailMessage(subject, message, "eurocabsnoreply", [mail])
+    #     email.attach_file(pdf_file_path)
+    #     email.send()
+
+    #     # Delete temporary PDF file
+    #     os.remove(pdf_file_path)
+
+    else:
+        pass
+    context = {
+        'data':data,
+        'form':form
+    }
+    return render(request, 'admin/fleetmail.html', context)

@@ -1,0 +1,93 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block active %}{%endblock%}
+{% block fleet %} active {%endblock%}
+
+{% block content %}
+
+<style>
+    /* Add these styles to your CSS file or style block in your HTML */
+.messages {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    z-index: 1000;
+}
+
+/* Style for error messages */
+.messages .error {
+    background-color: #ff6666;
+    color: #fff;
+    border: 1px solid #cc0000;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+/* Style for success messages */
+.messages .success {
+    background-color: #66ff66;
+    color: #000;
+    border: 1px solid #00cc00;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+/* Style for warning messages */
+.messages .warning {
+    background-color: #ffff66;
+    color: #000;
+    border: 1px solid #cccc00;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+</style>
+<div class="container my-4 shadow p-3">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">To</span>
+            <input type="email" name="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+          </div>
+    
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Subject</span>
+            <input type="text" name="subject" class="form-control" placeholder="Subject" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+    
+          <div class="form-floating">
+            <textarea class="form-control" name="message" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+            <label for="floatingTextarea2">Message</label>
+          </div>
+    
+          <!-- <div class="input-group my-3">
+            <label class="input-group-text" for="inputGroupFile01">Upload</label>
+            <input name="files" type="file" class="form-control" id="inputGroupFile01" multiple>
+          </div> -->
+
+          {{form.as_p}}
+    
+          <input type="checkbox" name="include" id="" class="me-2 mb-3" >Attach Vehicle Information <br>
+    
+          <button class="btn btn-primary mt-3">Send</button>
+    
+    </div>
+    </form>
+   
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+
+{% endblock %}
+
