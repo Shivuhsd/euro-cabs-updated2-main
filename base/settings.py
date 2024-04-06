@@ -57,6 +57,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SECURE_SSL_REDIRECT = True
+
 ROOT_URLCONF = 'base.urls'
 
 TEMPLATES = [
@@ -81,12 +83,12 @@ WSGI_APPLICATION = 'base.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 import dj_database_url
@@ -147,6 +149,13 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
+
+AWS_ACCESS_KEY_ID = "AKIAW3MECD4S33IZJVFD"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_S3_REGION_NAME = "eu-west-2"
+AWS_STORAGE_BUCKET_NAME = "eurocabs"
 
 ## Email Settings 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

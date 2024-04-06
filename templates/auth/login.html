@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Login</title>
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
@@ -14,7 +14,8 @@
     <div class="nav-items">
       
       {% if request.user.is_authenticated %}
-      <a href="{% url 'userLogout' %}"><button class="logout">Logout</button></a>{%endif%}
+      <a href="{% url 'userLogout' %}"><button class="logout">Logout</button></a>
+      {%endif%}
     </div>
   </div>
 
@@ -33,7 +34,7 @@
         {%csrf_token%}
         <div>
           <img class="lim" src="{% static 'img/euro.png' %}" alt="EuroCabs"><br>
-          <p style="text-align: center;">Admin Login</p><br>
+          <!-- <p style="text-align: center;">Admin Login</p><br> -->
         <label for="e-mail">Email</label><br>
         <input type="email" name="email" placeholder="Enter Email" required id="e-mail"><br>
 

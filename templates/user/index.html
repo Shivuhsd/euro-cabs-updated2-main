@@ -128,18 +128,24 @@
   &nbsp;
 
   <div id="table-container">
-    <h1 class="heading">airport transfer rates</h1>
+    <h1 class="heading">Airport Transfer Rates</h1>
     
-    <form action="#" class="location" method="post" onsubmit="event.preventDefault()">
+    <div action="#" class="location">
       <h3>Enter Your Source And Destination </h3>
       <div class="input-field">
         <i class="fas fa-map-marker-alt"></i>
         <label for="from" class="airport">From</label>
         <select id="from" name="from" onchange="getDest()">
-          <option value="none">Select A Airport</option>
-          {% for i in data %}
-          <option value="{{i.id}}">{{i.airportName}}</option>
+          <option value="none">Starting Point</option>
+          <option value="airport">---Available Airports---</option>
+          {% for i in airport %}
+          <option value="{{i.id}}" id="airport">{{i.name}}</option>
           {% endfor %}
+          <option value="city"><b style="background-color: red;">---Available Towns---</b></option>
+          {% for j in city %}
+          <option value="{{j.id}}" id="city">{{j.name}}</option>
+          {% endfor %}
+          
         </select>
         <!-- <input type="text" id="from" name="from" placeholder="Enter your location"> -->
       </div>
@@ -156,13 +162,13 @@
       <div style="display: none;" id="price">
         <div class="input-field" >
           <i class="fas fa-taxi"></i>
-          <label for="where" class="airport">Day Price</label>
+          <label for="where" class="airport">Day Price(6 AM TO 11:59 PM)</label>
           <input type="text" id="day" name="day" disabled>
           <!-- <input type="text" id="where" name="where" placeholder="Enter destination"> -->
         </div>
         <div class="input-field">
           <i class="fas fa-taxi"></i>
-          <label for="where" class="airport">Night Price</label>
+          <label for="where" class="airport">Night Price(12 AM TO 5:59 AM)</label>
           <input type="text" id="night" name="night" disabled>
           <!-- <input type="text" id="where" name="where" placeholder="Enter destination"> -->
         </div>
@@ -172,8 +178,8 @@
       
 
      
-      <!-- <button type="submit" class="airport-booking">Submit</button> -->
-    </form>
+      <a href="http://eb3.autocab.net/#/36364" style="display: none;" id="booknow"><button class="airport-booking">Book Now</button></a>
+    </div>
 
   </div>
 
@@ -216,11 +222,126 @@
 
   &nbsp;
 
+  <div id="our-areas">
+    <h1>Our Areas</h1>
+    <div id="area-cards">
+
+      <a href="{% url 'letchworth' %}" style="color: black;">
+        <div class="areas">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Estate_Office%2C_Broadway%2C_Letchworth.jpg/300px-Estate_Office%2C_Broadway%2C_Letchworth.jpg"
+            alt=""
+          />
+          <div class="desc-div">
+            <p>
+              Embark on a captivating journey through Letchworth aboard its
+              reliable taxis, where each turn reveals a new story. Traverse
+              charming streets as your knowledgeable Letchworth taxi driver
+              shares tales of the town's rich history, painting a vivid picture
+              of the world's first Garden City.
+            </p>
+            <div class="card-txt">
+              <h2>Letchworth Taxi</h2>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+
+      <a href="{% url 'baldock' %}" style="color: black;">
+        <div class="areas">
+          <img
+            src="https://www.thetrainline.com/content/vul/hero-images/city/london/2x.jpg"
+            alt=""
+          />
+          <div class="desc-div">
+            <p>
+              Explore Baldock's mysteries with Baldock. Traverse historic
+              streets, uncovering tales of knights and hidden treasures. From
+              Baldock Castle to St. Mary's Church, With Baldock Taxis,
+              navigating Baldock is effortless. Experience its allure and book
+              your adventure today.
+            </p>
+            <div class="card-txt">
+              <h2>Baldock Taxi</h2>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+
+      <a href="{% url 'hitchin' %}" style="color: black;"> 
+        <div class="areas">
+          <img
+            src="https://media.istockphoto.com/id/539658116/photo/hitchin.jpg?s=612x612&w=0&k=20&c=G2kU6BQy2GoABFPBEx_11xSgTgO6lRzxqS79003TK9E="
+            alt=""
+          />
+          <div class="desc-div">
+            <p>
+              Explore Hitchin's charm with Hitchin Taxis. Navigate its historic
+              streets, uncovering tales of its rich heritage. From medieval
+              landmarks to hidden gems, Hitchin's allure. With Hitchin Taxis,
+              exploring the town is convenient. Experience Hitchin's magic and
+              book your journey today.
+            </p>
+            <div class="card-txt">
+              <h2>Hitchin Taxi</h2>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+
+
+      <a href="{% url 'royston' %}" style="color: black">
+        <div class="areas">
+          <img
+            src="https://c0.wallpaperflare.com/preview/23/1000/900/united-kingdom-royston-wimpole-hall-wimpole.jpg"
+            alt=""
+          />
+          <div class="desc-div">
+            <p>
+              Explore Royston's charm with Royston Taxis. Navigate historic
+              streets, uncovering its vibrant past. Explore landmarks and hidden
+              treasures. With Royston Taxis, exploring is effortless. Immerse
+              yourself in Royston's allure. Book your adventure today.
+            </p>
+            <div class="card-txt">
+              <h2>Royston Taxi</h2>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+
+      <a href="{% url 'stotfoldcity' %}" style="color: black;">
+        <div class="areas">
+          <img
+            src="https://assets.savills.com/properties/GBBIRSCLV240390/CLV240390_30_l_lis.jpg"
+            alt=""
+          />
+          <div class="desc-div">
+            <p>
+              Explore Stotfold's charm with Stotfold Taxis. Navigate historic
+              streets, uncovering its hidden gems. Discover landmarks and local
+              treasures. With Stotfold Taxis, exploring is convenient. Immerse
+              yourself in Stotfold's allure. Book your adventure today.
+            </p>
+            <div class="card-txt">
+              <h2>Stotfold Taxi</h2>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+    </div>
+  </div>
+
   <div id="about-container">
     <h1 class="heading">About Us</h1>
     <p class="para">
       Eurocabs is one of the oldest and most established taxi companies in
-      Letchworth Garden City. We have a track record for providing a reliable
+      North Hertfordshire. We have a track record for providing a reliable
       and punctual service over the past 20 years. Eurocabs caters to the
       needs of corporate businesses to individuals who want to travel locally.
     </p>
@@ -351,13 +472,13 @@
         </div>
         <div class="accordion-item">
           <button id="accordion-button-6" aria-expanded="false">
-            <span class="accordion-title">I live in an area outside of letchworth, fairfield park, baldock and hitchin.
+            <span class="accordion-title">I live in an area outside of Letchworth, Fairfield park, Baldock and Hitchin.
               can you provide taxi services to me?</span>
             <span class="icon" aria-hidden="true"></span>
           </button>
           <div class="accordion-content">
             <p>
-              Local taxi services from villages outside hitchin, letchworth, baldock or royston are available at a fixed price either call 01462 600 700 for a quote or book through our app.
+              Local taxi services from villages outside Hitchin, Letchworth, Baldock or Royston are available at a fixed price either call 01462 600 700 for a quote or book through our app.
             </p>
           </div>
         </div>

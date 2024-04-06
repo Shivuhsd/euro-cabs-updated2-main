@@ -12,4 +12,4 @@ class MyBusinessForm(ModelForm):
 class MyDriver(ModelForm):
     class Meta:
         model = DriverFiles
-        exclude = ('driver_id',)
+        exclude = ('driver_id','all_files_flag','accept_flag')

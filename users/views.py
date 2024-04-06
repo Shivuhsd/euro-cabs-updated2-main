@@ -1,11 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .models import ComplaintForm, DriverFiles, Reply
-import dashboard.models
 from .forms import MyBusinessForm, MyDriver
 from django.contrib import messages
 from .custom import generate_unique_random_numbers
-
+import dashboard.models
 
 
 # Create your views here.
@@ -14,7 +13,8 @@ from .custom import generate_unique_random_numbers
 #Function to Home Page
 
 def home(request):
-    data = dashboard.models.airportRates.objects.all()
+    airports = dashboard.models.Airports.objects.all().order_by('name').values()
+    cities = dashboard.models.City.objects.all().order_by('name').values()
     # other = ''
     # if request.method == 'POST':
     #     userName = request.POST['userName']
@@ -43,7 +43,13 @@ def home(request):
     #         print("Something Went Wrong.....") 
     # else:
     #     print("Something Went Wrong Here also......")
-    return render(request, 'user/index.html', {'data':data})
+
+    context = {
+       'airport': airports,
+       'city' : cities
+    }
+
+    return render(request, 'user/index.html', context)
 
 
 #Function to Privacy Policy
@@ -119,8 +125,30 @@ def complaintForm(request):
     else:
         print("Something Went Wrong Here also......")
     
-        
+# def toName(request):
+#     if request.method == 'GET':
+#         value = request.GET['value']
 
+        
+def airportDest(request):
+   
+    if request.method == 'GET':
+        fromValue = request.GET['dest']
+        try:
+            airp = dashboard.models.Airports.objects.get(id = fromValue)
+            fValue = dashboard.models.Rates.objects.filter(airport = airp)
+            dest = list(fValue.values())
+            for i in dest:
+                i.pop("airport_name")
+            return JsonResponse({'res': dest})
+        except:
+            city = dashboard.models.City.objects.get(id = fromValue)
+            fValue = dashboard.models.Rates.objects.filter(city = city)
+            dest = list(fValue.values())
+            for i in dest:
+                i.pop("city_name")
+            return JsonResponse({'res': dest})
+            
 
 
 # Function to get the Business Details from the Client
@@ -165,15 +193,6 @@ def businessForm(request):
     return render(request, 'user/corporate.html')
 
 
-#Function to Get the Destination from the Selected Airport
-
-def airportDest(request):
-    if request.method == 'GET':
-        fromCity = request.GET['dest']
-        dest = dashboard.models.airportCity.objects.filter(fromCity = dashboard.models.airportRates.objects.get(id = fromCity))
-        dest_list = list(dest.values())
-        return JsonResponse({'dest': dest_list})
-    
 
 
 # Function to airport page
@@ -190,7 +209,8 @@ def schools(request):
 
 
 # DRIVER PERSONAL DETAILS
-
+from django.contrib.auth.decorators import login_required
+@login_required
 def DriverForm(request):
     if 'username' in request.session:
         del request.session['username']
@@ -202,6 +222,7 @@ def DriverForm(request):
             obj.driver_id = request.user
             obj.all_files_flag = True
             obj.save()
+            return redirect('driverDash')
         else:
             messages.error(request, 'Something Went Wrong')
     context = {
@@ -211,17 +232,23 @@ def DriverForm(request):
 
 
 #Driver Dash
+@login_required
 def DriverDash(request):
     mes = ''
-    data = get_object_or_404(DriverFiles, driver_id = request.user)
-    if data.all_files_flag == True and data.accept_flag == True:
-        mes = "You Are Selected"
-    elif data.all_files_flag == True and data.accept_flag == False:
-        mes = "Application is in Process..."
-    else:
+    try:
+        data = get_object_or_404(DriverFiles, driver_id = request.user)
+        if data.all_files_flag == True and data.accept_flag == True:
+            mes = "ok"
+            print(mes)
+        elif data.all_files_flag == True and data.accept_flag == False:
+            mes = "no"
+            print(mes)
+        else:
+            return redirect('driverForm')
+    except:
         return redirect('driverForm')
 
-    return render(request, 'user/driverDash.html', {'data': mes})
+    return render(request, 'user/driverDashboard.html', {'data': mes})
 
 
 def CusReply(request, pk, rep):
@@ -242,3 +269,25 @@ def CusReply(request, pk, rep):
         'which': which_reply
     }
     return render(request, 'user/cusreply.html', context)
+
+
+#Our Areas Fuctions or Views
+
+def Hitchin(request):
+    return render(request, 'user/hitchin.html')
+
+
+def Baldock(request):
+    return render(request, 'user/baldock.html')
+
+
+def Letchworth(request):
+    return render(request, 'user/letchworth.html')
+
+
+def Royston(request):
+    return render(request, 'user/Royston.html')
+
+
+def Stotfoldcity(request):
+    return render(request, 'user/stotfoldcity.html')

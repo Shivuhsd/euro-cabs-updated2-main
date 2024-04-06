@@ -1,0 +1,36 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block active %}{%endblock%}
+{% block airport %} active {%endblock%}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Create Route</h1>
+        <form action="#" class="form-group p-3" method="POST">
+            {% csrf_token %}
+            <label for="">Select Airport</label>
+            <select name="airport" id="" class="form-control">
+                {% for airport in airports %}
+                    <option value="{{airport.id}}">{{airport.name}}</option>
+                {% endfor %}
+            </select>
+            <label for="" class="pt-4">Select City</label>
+            <select name="city" id="" class="form-control">
+                {% for city in cities %}
+                    <option value="{{city.id}}">{{city.name}}</option>
+                {% endfor %}
+            </select>
+
+            <label for="" class="pt-4">Day Rate</label>
+            <input type="text" name="dayRate" placeholder="Day Rate" class="form-control">
+
+            <label for="" class="pt-4">Night Rate</label>
+            <input type="text" name="nightRate" placeholder="Night Rate" class="form-control">
+
+            <button class="btn btn-dark mt-4">Create</button>
+        </form>
+    </div>
+   
+{% endblock %}

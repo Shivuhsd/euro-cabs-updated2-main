@@ -1,30 +1,60 @@
 from django.db import models
 import uuid
 import users.models
+import accounts.models
 
 # Create your models here.
-class airportRates(models.Model):
-    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-    airportName = models.CharField(max_length=200, blank = False)
-    timeStamp = models.DateTimeField(auto_now_add=True)
+# class airportRates(models.Model):
+#     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
+#     airportName = models.CharField(max_length=200, blank = False)
+#     timeStamp = models.DateTimeField(auto_now_add=True)
 
+
+#     def __str__(self):
+#         return self.airportName
+
+
+
+# class airportCity(models.Model):
+#     id = models.UUIDField(primary_key = True, editable=False, default = uuid.uuid4)
+#     fromCity = models.ForeignKey("airportRates", on_delete=models.CASCADE)
+#     to = models.CharField(max_length=50, blank = False)
+#     dayRate = models.DecimalField(max_digits=100, decimal_places=2)
+#     nightRate = models.DecimalField(max_digits=5, decimal_places=2)
+#     timeStamp = models.DateTimeField(auto_now_add=True)
+
+
+    # def __str__(self):
+    #     return self.to
+
+class Airports(models.Model):
+    id = models.UUIDField(primary_key = True, editable = False, default = uuid.uuid4)
+    name = models.CharField(max_length=100, blank = False)
+    time_stamp = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
-        return self.airportName
+        return self.name
+    
 
-
-
-class airportCity(models.Model):
-    id = models.UUIDField(primary_key = True, editable=False, default = uuid.uuid4)
-    fromCity = models.ForeignKey("airportRates", on_delete=models.CASCADE)
-    to = models.CharField(max_length=50, blank = False)
-    dayRate = models.DecimalField(max_digits=100, decimal_places=2)
-    nightRate = models.DecimalField(max_digits=5, decimal_places=2)
-    timeStamp = models.DateTimeField(auto_now_add=True)
-
+class City(models.Model):
+    id = models.UUIDField(primary_key = True, editable = False, default = uuid.uuid4)
+    name = models.CharField(max_length = 100, blank = False)
+    time_stamp = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
-        return self.to
+        return self.name
+    
+
+class Rates(models.Model):
+    id = models.UUIDField(primary_key = True, editable = False, default = uuid.uuid4)
+    airport = models.ForeignKey(Airports, on_delete = models.CASCADE)
+    city = models.ForeignKey(City, on_delete = models.CASCADE)
+    airport_name = models.CharField(max_length=30, blank = True)
+    city_name = models.CharField(max_length=30)
+    nightRate = models.CharField(max_length = 20, blank = True)
+    dayRate = models.CharField(max_length = 20, blank = True)
+    time_stamp = models.DateTimeField(auto_now_add = True)
+    who_created = models.ForeignKey(accounts.models.CustomUser, on_delete = models.PROTECT)
     
 
 class businessForm(models.Model):

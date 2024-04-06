@@ -1,0 +1,7 @@
+Important Questions
+1) Main purpose of mobile technology
+2) Key Platform Components of Android
+3) life Cycle of an activity with diagram
+4) Diffrent Layouts avaliable in Android
+5) fragements and how an activity is divided into diffrent fragements
+6) Views and 4 basic views avaliable in android

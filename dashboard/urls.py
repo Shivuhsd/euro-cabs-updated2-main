@@ -7,10 +7,17 @@ urlpatterns = [
     path('<str:pk>/showComplaint/', views.showComplaint, name='showComplaint'),
     path('<str:pk>/tokenAccepted/', views.tokenAccepted, name='tokenAccepted'),
     path('addAirports/', views.addAirports, name='addAirports'),
-    path('<str:pk>/manage/', views.cityManage, name='cityManage'),
-    path('<str:pk>/editCity/', views.editCity, name='editCity'),
-    path('<str:pk>/deleteCity/', views.deleteCity, name='deleteCity'),
-    path('<str:pk>/deleteAirport/', views.deleteAirport, name='deleteAirport'),
+    path('addcity/', views.addCity, name = 'addcity'),
+    path('<str:pk>/cityManage/', views.cityManage, name='cityManage'),
+    path('<str:pk>/airportManage/', views.airportManage, name = 'airportManage'),
+    path('createRoute/', views.CreateRoute, name='createRoute'),
+    path('editRoute/<str:pk>/', views.EditRoute, name='editroute'),
+    path('deleteRoute/<str:pk>/', views.DeleteRoute, name='deleteroute'),
+
+    #City Paths
+
+    path('deleteCity/<str:pk>/', views.deleteCity, name='deleteCity'),
+    path('deleteAirport/<str:pk>/', views.deleteAirport, name='deleteAirport'),
     path('businessForms/', views.businessForms, name='businessForms'),
     path('<str:pk>/businessForm/', views.businessFormView, name='businessFormView'),
     path('oldComplaints/', views.oldComplaints, name='oldComplaints'),
@@ -21,5 +28,10 @@ urlpatterns = [
     path('editfleet/<str:pk>/', views.EditFleet, name='editfleet'),
     path('deletefleet/<str:pk>/', views.DeleteFleet, name='deletefleet'),
     path('ongoing/', views.onGoing, name='ongoing'),
-    path('resolved/<str:pk>/', views.Resolved, name='resolved')
+    path('resolved/<str:pk>/', views.Resolved, name='resolved'),
+    path('adddriver/', views.Adddriver, name='adddriver'),
+
+    #Path which sends email to other company
+    path('expiry/<str:pk>/<str:email>/', views.ExpiryMail, name='expirymail'),
+    path('fleetmail/<str:pk>/', views.FleetMail, name='fleetmail'),
 ]

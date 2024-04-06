@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driver File Upload</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
-<body>
+{% extends 'user/driverDashboard.html' %}
+    {% block driverDash %}
     <div class="container mt-5">
-        <h3 class="my-4">Driver Document Upload</h3>
+        <h3 class="my-4 text-center">Driver Document Upload</h3>
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{form.as_p}}
             <button class="btn btn-dark my-5">Upload</button>
         </form>
     </div>
-</body>
-</html>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
 <script>
     document.getElementById('id_DVLA_Driving_Licence').className = 'form-control'
     document.getElementById('id_DVLA_Check_Code').className = 'form-control'
@@ -30,3 +22,4 @@
     document.getElementById('id_Bank_Statement').className = 'form-control'
     document.getElementById('id_profile_photo').className = 'form-control'
 </script>
+{% endblock %}

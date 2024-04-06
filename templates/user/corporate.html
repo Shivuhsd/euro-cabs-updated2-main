@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eurocabs Business</title>
+    <title>Euro Cabs</title>
     <link rel="icon" type="image/x-icon" href="{% static 'assets/images/new-logo.png' %}">
     <link rel="stylesheet" href="{% static 'assets/css/corporate.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -13,27 +13,9 @@
 
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
-   
-
-    <style>
-      .error {
-        font-family: 'Courier New', Courier, monospace;
-        color: rgb(255, 85, 85);
-        font-size: 24px;
-        margin-top: 20px;
-      }
-
-      .success {
-        margin-top: 20px;
-        font-family: 'Courier New', Courier, monospace;
-        color: rgb(117, 255, 117);
-        font-size: 24px;
-      }
-    </style>
 </head>
 
 <body>
-    
     <div class="navigationbar">
         <nav class="navbar">
             <a href="{% url 'home' %}" target="_self" class="site-name">
@@ -46,24 +28,13 @@
                     <i class="fas fa-times"></i>
                 </span>
                 <ul class="navbar-nav">
-                     <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{% url 'home' %}" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
                         <a href="http://eb3.autocab.net/#/36364" class="nav-link">Book A Cab</a>
                     </li>
-                  <!--  <li class="nav-item">
-                        <a href="index.html#about-container" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item">
-                         <a href="#" class="nav-link">Earn with Euro Cabs</a> 
-                    </li>
-                    <li class="nav-item">
-                        <a href="corporate.html" class="nav-link">Corporate Accounts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="index.html#faq-section" class="nav-link">FAQs</a>
-                    </li>-->
+                 
                     <li class="nav-item">
                         <a href="{% url 'home' %}#table-container" class="nav-link">Airport Rates</a>
                     </li>
@@ -80,6 +51,8 @@
                         <a href="{% url 'home' %}#about-container" class="nav-link">About Us</a>
                     </li>
                 </ul>
+
+
                 <div class="nav-social-icon">
                     <a href="https://www.facebook.com/eurocabs/"><i class="fab fa-facebook"></i><span></span></a>
                     <a href="https://twitter.com/euro_cabs"><i class="fab fa-twitter"></i><span></span></a>
@@ -90,27 +63,47 @@
         </nav>
     </div>
 
-    
-  
-
     <div class="corporate-section">
-        <h1>Euro Cabs Businesses</h1>
+        <h1>Eurocabs Businesses</h1>
 
         <div class="corporate-info">
             <h2>Elevate Your Corporate Travel Experience with EuroCabs.</h2>
-            <p>We understand that in the corporate world, time is of the essence, and seamless
-                travel is paramount. That's why EuroCabs is here to redefine your business travel
-                experience. With a focus on efficiency, cost-effectiveness, and unparalleled service,
-                EuroCabs is your dedicated partner in elevating corporate travel to new heights.
-                In our commitment to optimising your travel efficiency and delivering exceptional
-                value, we confidently propose a bold challenge: If EuroCabs cannot demonstrate a
-                measurable reduction of at least 15% in your current travel expenditures, we
-                will respectfully decline the opportunity to be your preferred travel partner.
-                This commitment underscores our dedication to providing tangible, cost-effective
-                solutions tailored to elevate your corporate travel experience. We invite you to
-                engage in a consultation to explore the transformative impact EuroCabs can bring to
-                your organisation's travel management. Partner with us, and let's redefine the
-                possibilities of corporate travel together."</p>
+            <p>We understand that in the corporate world, time is of the essence, and seamless travel is paramount.
+                That's why EuroCabs is here to redefine your business travel experience. With a focus on efficiency,
+                cost-effectiveness, and unparalleled service, EuroCabs is your dedicated partner in elevating corporate
+                travel to new heights. In our commitment to optimizing your travel efficiency and delivering exceptional
+                value, we confidently propose a bold challenge. If EuroCabs cannot demonstrate a measurable reduction of
+                in your current travel expenditures, we will respectfully decline the opportunity to be
+                your preferred travel partner.</p>
+        </div>
+
+        <!-- This commitment underscores our dedication to providing tangible,
+                cost-effective solutions tailored to elevate your corporate travel experience. We invite you to engage
+                in a consultation to explore the transformative impact EuroCabs can bring to your organization's travel
+                management. Partner with us, and let's redefine the possibilities of corporate travel together -->
+
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide">
+                    <img src="{% static 'assets/images/bg-img-1.jpg' %}" alt="Image 1">
+                    <p>
+                        We understand that in the corporate world, time is crucial.EuroCabs is redefining business
+                        travel for seamless experiences.
+                    </p>
+                </div>
+                <div class="slide">
+                    <img src="{% static 'assets/images/corporate-travel-1.avif' %}" alt="Image 1">
+                    <p>
+                        Experience dedicated and exceptional service throughout your journey.
+                    </p>
+                </div>
+                <div class="slide">
+                    <img src="{% static 'assets/images/business-img-1.jpg' %}" alt="Image 1">
+                    <p>
+                        Save costs without compromising on quality with our tailored solutions.
+                    </p>
+                </div>
+            </div>
         </div>
 
         <div class="features">
@@ -137,7 +130,7 @@
                     Why Choose EuroCabs? <i class="fas fa-plus"></i>
                 </div>
                 <div class="faq-answer">
-                    <p>1. Punctuality and Time Efficiency:</p>
+                    <p>1. Punctuality and Time Efficiency <i class="fas fa-clock"></i></p>
                     <ul>
                         <li>Our commitment to punctuality ensures that your executives and employees are never left
                             waiting.</li>
@@ -146,14 +139,14 @@
                         <li>24/7 Availability Whether it's a last-minute meeting or an early morning flight, EuroCabs is
                             available around the clock to cater to your transportation needs.</li>
                     </ul>
-                    <p>2. Cost-Effective Solutions:</p>
+                    <p>2. Cost-Effective Solutions <i class="fas fa-coins"></i></p>
                     <ul>
                         <li>We recognize the importance of fiscal responsibility in business. EuroCabs provides
                             transparent and competitive pricing to help you optimize your travel budget.</li>
                         <li>Eliminate hidden costs and enjoy quality service without compromising your financial
                             objectives.</li>
                     </ul>
-                    <p>3. Dedicated Account Management:</p>
+                    <p>3. Dedicated Account Management <i class="fas fa-user-tie"></i></p>
                     <ul>
                         <li>Your business is unique, and so are your travel needs. Our experienced account managers work
                             closely with you to tailor solutions that align with your corporate objectives.</li>
@@ -162,7 +155,7 @@
                         <li>We offer flexible billing options to accommodate your company's unique needs, making expense
                             management a breeze.</li>
                     </ul>
-                    <p>4. Advanced Technology:</p>
+                    <p>4. Advanced Technology <i class="fas fa-laptop"></i></p>
                     <ul>
                         <li>Stay at the forefront of business travel with our state-of-the-art technology.</li>
                         <li>Our user-friendly mobile app empowers you to book, track, and manage your corporate travel
@@ -172,10 +165,12 @@
             </div>
         </div>
 
+
         <h1 class="text-accent">Tailored Packages for Your Business:
         </h1>
         <div class="plans flow-content">
             <div class="plan plan--light">
+                <i class="fas fa-briefcase"></i>
                 <h2 class="plan-title">Executive Travel:</h2>
                 <p class="plan-description">
                     ○ Impress clients and partners by choosing our executive travel
@@ -188,6 +183,7 @@
             </div>
 
             <div class="plan plan--accent">
+                <i class="fas fa-users"></i>
                 <h2 class="plan-title">Team Building Events:
                 </h2>
                 <p class="plan-description">
@@ -200,6 +196,7 @@
             </div>
 
             <div class="plan plan--light">
+                <i class="fas fa-plane-departure"></i>
                 <h2 class="plan-title">Airport Transfers:</h2>
                 <p class="plan-description">
                     ○ Say goodbye to travel stress with our reliable airport transfer services. <br>
@@ -210,102 +207,70 @@
             </div>
         </div>
 
-        
-
         <div class="corporate-form">
             <div class="form-div">
                 <h2>Elevate Efficiency With Your Trusted Partner in Corporate Travel Excellence.</h2>
-                <p>
-
-                    reach out to us today to explore how EuroCabs can customize its services to align with the
-                    specific requirements of Your Company. Enhance your corporate travel with a premium experience
-                    befitting your success. Complete the form below to embark on your corporate journey.
-                </p>
-                <form id="contact-form" action="{% url 'businessForm' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="form-section">
+                <p>Reach out to us today to explore how EuroCabs can customize its services to align with the specific
+                    requirements of Your Company. Enhance your corporate travel with a premium experience befitting your
+                    success. Complete the form below to embark on your corporate journey.</p>
+                <form id="contact-form" method="POST">
+                    <div id="step1" class="form-section active">
                         <h2>Company</h2>
                         <label for="company-name">Company Name:</label>
-                        <input type="text" id="company-name" name="companyName" required />
-                        <br />
+                        <input type="text" id="company-name" name="companyName" required /><br />
 
                         <label for="nature-of-business">Nature of Business:</label>
-                        <input type="text" id="nature-of-business" name="natureOfBusiness" required />
-                        <br />
+                        <input type="text" id="nature-of-business" name="natureOfBusiness" required /><br />
 
                         <label for="website">Website Address:</label>
-                        <input style="width: 95%;
-                        padding: 10px;
-                        margin: 5px 0;
-                        border: 1.5px solid #000000;
-                        border-radius: 5px;
-                        background-color: #fff;
-                        color: #000;" type="url" id="website" name="WebsiteAddress" />
-                        <br />
+                        <input type="text" id="website" name="WebsiteAddress" /><br />
 
                         <label for="established-year">Year Company was Established:</label>
                         <input type="text" id="established-year" name="YearCompanyWasEstablished" />
                     </div>
 
-                    <!-- Contact Details -->
-                    <div class="form-section">
+                    <div id="step2" class="form-section" style="display: none;">
                         <h2>Contact Details</h2>
                         <label for="contact-name">Name:</label>
-                        <input type="text" id="contact-name" name="contactName" required />
-                        <br />
+                        <input type="text" id="contact-name" name="contactName" required /><br />
 
                         <label for="job-title">Job Title:</label>
-                        <input type="text" id="job-title" name="jobTitle" required />
-                        <br />
+                        <input type="text" id="job-title" name="jobTitle" required /><br />
 
                         <label for="department">Department:</label>
-                        <input type="text" id="department" name="department" />
-                        <br />
+                        <input type="text" id="department" name="department" /><br />
 
                         <label for="telephone">Telephone Number:</label>
-                        <input type="text" id="telephone" name="telephoneNumber" required />
-                        <br />
+                        <input type="tel" id="telephone" name="telephoneNumber" required /><br />
 
                         <label for="email">Email Address:</label>
                         <input type="email" id="email" name="emailAddress" required />
-                        <br />
                     </div>
 
-                    <!-- Account Details -->
-                    <div class="form-section">
+                    <div id="step3" class="form-section" style="display: none;">
                         <h2>Account Details</h2>
                         <label for="credit-amount">Monthly Credit Amount:</label>
-                        <input type="text" id="credit-amount" name="monthlyCreditAmount" />
-                        <br />
+                        <input type="number" id="credit-amount" name="monthlyCreditAmount" /><br />
 
                         <label for="monthly-spend">Monthly Spend:</label>
-                        <input type="text" id="monthly-spend" name="monthlySpend" />
-                        <br />
+                        <input type="number" id="monthly-spend" name="monthlySpend" /><br />
 
-                        <label for="authorized-by">Authorised By:</label>
-                        <input type="text" id="authorized-by" name="authorisedBy" required />
-                        <br />
+                        <label for="authorized-by">Authorized By:</label>
+                        <input type="text" id="authorized-by" name="authorisedBy" required /><br />
 
-                        <!-- Terms & Conditions -->
-                        <label for="terms-and-conditions"><a href="https://www.eurocabsherts.co.uk/business-terms">
-                                agree with the Terms & Conditions:</a>I</label>
-                        <input type="checkbox" id="terms-and-conditions"  required />
-                        <br />
+                        <label for="terms-and-conditions">
+                            <a href="BusinessT&C.html">Agree with the Terms & Conditions</a>:
+                        </label>
+                        <input type="checkbox" id="terms-and-conditions" name="terms-and-conditions" required />
                     </div>
                     <br />
 
-                    <!-- Form Submission -->
-                    <input type="submit" value="Submit" />
-                    {% if messages %}
-                    <ul class="messages">
-                    {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                    </ul>
-                    {% endif %}
+                    <button type="button" id="nextBtn" onclick="nextStep()">Next</button>
+                    <input type="submit" value="Submit" style="display: none;" id="submitBtn">
                 </form>
             </div>
         </div>
+    </div>
 
     </div>
 
@@ -325,11 +290,12 @@
             <div class="footer-section">
                 <h4>Services</h4>
                 <ul>
-                    <li><a href="{% url 'home' %}#services-section">Rides</a></li>
-                    <li><a href="{% url 'home' %}#services-section">Airports</a></li>
-                    <li><a href="{% url 'home' %}#services-section">Business</a></li>
-                    <li><a href="{% url 'home' %}#services-section">Drive</a></li>
-                    <li><a href="{% url 'home' %}#services-section">School Transport</a></li>
+                    <li><a href="https://eb3.autocab.net/#/36364">Rides</a></li>
+                    <li><a href="https://eb3.autocab.net/#/36364">Airports</a></li>
+                    <li><a href="https://eb3.autocab.net/#/36364">Business</a></li>
+                    <li><a href="https://eb3.autocab.net/#/36364">Drive</a></li>
+                    <li><a href="https://eb3.autocab.net/#/36364">School Transport</a></li>
+                    <li><a href="https://eb3.autocab.net/#/36364">SENS Transport</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -345,8 +311,9 @@
                 <ul class="social-icons">
                     <a href="https://www.facebook.com/eurocabs/"><i class="fab fa-facebook"></i><span></span></a>
                     <a href="https://twitter.com/euro_cabs"><i class="fab fa-twitter"></i><span></span></a>
-                    <a href="https://www.linkedin.com/company/eurocabs/"><i class="fab fa-linkedin"></i><span></span></a>
-                    <!--<a href="#"><i class="fab fa-instagram"></i><span></span></a>-->
+                    <a href="https://www.linkedin.com/company/eurocabs/"><i
+                            class="fab fa-linkedin"></i><span></span></a>
+                    <!-- <a href="#"><i class="fab fa-instagram"></i><span></span></a> -->
                 </ul>
             </div>
         </div>
@@ -355,8 +322,6 @@
         </div>
     </footer>
 
-    
-  
     <script src="{% static 'assets/js/corporate.js' %}"></script>
 
     <!-- GSAP -->
@@ -370,13 +335,6 @@
         integrity="sha512-+LXqbM6YLduaaxq6kNcjMsQgZQUTdZp7FTaArWYFt1nxyFKlQSMdIF/WQ/VgsReERwRD8w/9H9cahFx25UDd+g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-       
-
-    <!-- <script>
-        let notification = document.getElementById("error")
-          notification.className = "show";
-          setTimeout(() => { notification.className = notification.className.replace("show", ""); }, 10000);
-    </script> -->
 </body>
 
 </html>

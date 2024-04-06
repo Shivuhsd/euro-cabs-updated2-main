@@ -182,7 +182,11 @@ a {
   overflow: hidden;
   width: 406px;
   margin: auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 3vw;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -226,6 +230,12 @@ a {
   border-radius: 50px;
 }
 
+.image-div img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 3vw;
+}
+
 /* Styles for note cards */
 .notes {
   display: flex;
@@ -241,6 +251,11 @@ a {
   border-radius: 5px;
   padding: 20px;
   max-width: 410px;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  margin-top: 3vw ;
+  margin-bottom: 3vw;
 }
 
 .note-header {
@@ -283,7 +298,7 @@ a {
   background-color: #f7f7f7;
   padding: 3vw;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .card-section {
@@ -423,6 +438,64 @@ li {
   color: #777;
 }
 
+/* download our app  */
+
+.app-download {
+  background-color: #f4f4f4;
+  border: 2px solid #39b54a;
+  width: 50%;
+  border-radius: 20px;
+  margin: 0 auto;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-info {
+  margin-bottom: 20px;
+}
+
+.app-info h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.app-info p {
+  font-weight: 600;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.download-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f4770a;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 24px;
+  transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #fe3c0d;
+}
+
+.app-image img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
 @media screen and (max-width: 600px) {
   .site-name {
     font-size: 1.8rem;
@@ -442,8 +515,8 @@ li {
     line-height: 8vw;
   }
   .card-airport {
-    width: 360px;
-    margin: 23px;
+    width: 333px;
+    margin: auto;
   }
   .main-card {
     width: 90%;
@@ -473,5 +546,21 @@ li {
     line-height: 5vw;
     text-align: start;
     padding: 12px;
+  }
+
+  .app-download {
+    width: 80%;
+    margin: 0 auto;
+    padding: 50px 0;
+  }
+
+  .app-info h2 {
+    font-size: 1.2em;
+    margin-bottom: 14px;
+  }
+  .app-info p {
+    font-weight: 600;
+    font-size: 1em;
+    margin-bottom: 2px;
   }
 }

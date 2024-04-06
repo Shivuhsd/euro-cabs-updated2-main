@@ -7,7 +7,8 @@
     <meta name="description" content="">
     <!-- <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors"> -->
     <!-- <meta name="generator" content="Hugo 0.84.0"> -->
-    <title>Dashboard Template · Bootstrap v5.0</title>
+    <title>Eurocabs Admin Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/images/new-logo.png' %}">
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
 
@@ -31,6 +32,48 @@
         }
       }
     </style>
+
+
+<style>
+  /* Add these styles to your CSS file or style block in your HTML */
+.messages {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 1000;
+}
+
+/* Style for error messages */
+.messages .error {
+  background-color: #ff6666;
+  color: #fff;
+  border: 1px solid #cc0000;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+/* Style for success messages */
+.messages .success {
+  background-color: #66ff66;
+  color: #000;
+  border: 1px solid #00cc00;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+/* Style for warning messages */
+.messages .warning {
+  background-color: #ffff66;
+  color: #000;
+  border: 1px solid #cccc00;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+</style>
 
     
     <!-- Custom styles for this template -->
@@ -57,7 +100,7 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link {% block active %}active{%endblock%}" aria-current="page" href="#">
+            <a class="nav-link {% block active %}active{%endblock%}" aria-current="page" href="{% url 'adminDashboard' %}">
               <span data-feather="home"></span>
               Dashboard
             </a>
@@ -145,18 +188,137 @@
       </div>
       {% block content %}
       <div class="container">
+        <div class="total_numbers">
+          <div class="row">
+            <div class="col-md">
+              <div class="out-box border border-primary shadow my-3" style="width: 300px; height: 130px; border-radius: 10px;">
+                <div class="cont px-4 py-2" style="display: flex;">
+                  <img src="{% static 'img/com.svg' %}" alt="" style="width: 100px;">
+                  <div class="total mx-2 mt-2 text-start">
+                    <p style="font-size: 30px;" class="text-primary">{{total_complaints}}</p>
+                    <p style="font-size: large;">Total Complaints</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <div class="col-md">
+              <div class="out-box border border-info shadow my-3" style="width: 300px; height: 130px; border-radius: 10px;">
+                <div class="cont px-4 py-2" style="display: flex;">
+                  <img src="{% static 'img/taxi-front.svg' %}" alt="" style="width: 100px;">
+                  <div class="total mx-2 mt-2 text-info">
+                    <p style="font-size: 30px;" class="text-primary">{{total_Fleet}}</p>
+                    <p style="font-size: large;">Total Vehicles</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md">
+              <div class="out-box border border-danger shadow my-3" style="width: 300px; height: 130px; border-radius: 10px;">
+                <div class="cont px-4 py-2" style="display: flex;">
+                  <img src="{% static 'img/buildings.svg' %}" alt="" style="width: 100px;" class="img-fluid">
+                  <div class="total mx-2 mt-2 text-danger">
+                    <p style="font-size: 30px;" class="text-primary">{{total_business_query}}</p>
+                    <p style="font-size: large;">Business Query</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md">
+              <div class="out-box border border-light-subtle shadow my-3" style="width: 300px; height: 130px; border-radius: 10px;">
+                <div class="cont px-4 py-2" style="display: flex;">
+                  <img src="{% static 'img/airplane.svg' %}" alt="" style="width: 100px;">
+                  <div class="total mx-2 mt-2 text-light-subtle">
+                    <p style="font-size: 30px;" class="text-primary">{{total_airports}}</p>
+                    <p style="font-size: large;">Total Airports</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+            <div class="col-md">
+              <div class="out-box border border-warning shadow my-3" style="width: 300px; height: 130px; border-radius: 10px;">
+                <div class="cont px-4 py-2" style="display: flex;">
+                  <img src="{% static 'img/geo-alt.svg' %}" alt="" style="width: 100px;">
+                  <div class="total mx-2 mt-2 text-warning">
+                    <p style="font-size: 30px;" class="text-primary">{{total_cities}}</p>
+                    <p style="font-size: large;">Total Towns</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md">
+              <div class="out-box border border-dark shadow my-3" style="width: 300px; height: 130px; border-radius: 10px;">
+                <div class="cont px-4 py-2" style="display: flex;">
+                  <img src="{% static 'img/signpost-split.svg' %}" alt="" style="width: 100px;">
+                  <div class="total mx-2 mt-2 text-dark">
+                    <p style="font-size: 30px;" class="text-primary">{{total_Routes}}</p>
+                    <p style="font-size: large;">Total Routes</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+        <div id="container" style="width: 95%; margin-top: 4%;" class="p-3 shadow text-center">
+          <p style="font-size: large; font-weight: 800;">Number of Complaints(Month Wise)</p>
+          <canvas id="myChart"></canvas>
+        </div>
       </div>
       {% endblock %}
+      {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
     </main>
   </div>
 </div>
 
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-    <!-- <script src="dashboard.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      let ctx = document.getElementById('myChart').getContext('2d');
+     
+      let months = {{ months|safe }};
+      let data = {{ data|safe }};
+    
+
+      let chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: months,
+              datasets: [{
+                  label: 'Monthly Data',
+                  data: data,
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: false
+                  }
+              }
+          }
+      });
+  </script>
   </body>
 </html>
 
