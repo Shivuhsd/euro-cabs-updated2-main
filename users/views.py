@@ -269,3 +269,25 @@ def CusReply(request, pk, rep):
         'which': which_reply
     }
     return render(request, 'user/cusreply.html', context)
+
+
+#Our Areas Fuctions or Views
+
+def Hitchin(request):
+    return render(request, 'user/hitchin.html')
+
+
+def Baldock(request):
+    return render(request, 'user/baldock.html')
+
+
+def Letchworth(request):
+    return render(request, 'user/letchworth.html')
+
+
+def Royston(request):
+    return render(request, 'user/Royston.html')
+
+
+def Stotfoldcity(request):
+    return render(request, 'user/stotfoldcity.html')

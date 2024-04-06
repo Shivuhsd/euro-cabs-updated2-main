@@ -26,4 +26,13 @@ urlpatterns = [
 
     ## Users Reply for A complaint Feedback
     path('comreply/<str:pk>/<str:rep>/', views.CusReply, name='cusreply'),
+
+
+    # Areas Urls
+
+    path('areas/hitchin/', views.Hitchin, name='hitchin'),
+    path('areas/letchworth/', views.Letchworth, name='letchworth'),
+    path('areas/royston/', views.Royston, name='royston'),
+    path('areas/stotfodcity/', views.Stotfoldcity, name='stotfoldcity'),
+    path('areas/baldock/', views.Baldock, name='baldock'),
 ]
