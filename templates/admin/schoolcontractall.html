@@ -1,0 +1,66 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block active %}{%endblock%}
+{% block complaint %}active{%endblock%}
+
+
+{% block content %}
+
+    <a href="{% url 'addschoolcontract' %}" class="py-5"><button class="btn btn-primary my-5">Add Contract</button></a>
+   
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Start</th>
+            <th scope="col">End</th>
+            <th scope="col">Pick Time</th>
+            <th scope="col">Drop Time</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Pickup</th>
+            <th scope="col">Drop</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+
+
+
+        <tbody>
+            <tr>
+                <th colspan="8" class="pt-1">Expiring Contracts</th>
+            </tr>
+            {% for i in exp %}
+            <tr class="bg-warning">
+              <th scope="row">{{i.start_date}}</th>
+              <td>{{i.end_date}}</td>
+              <td>{{i.pick_time}}</td>
+              <td>{{i.drop_time}}</td>
+              <td>{{i.contact_number}}</td>
+              <td>{{i.pick_up_location}}</td>
+              <td>{{i.drop_location}}</td>
+              <td><a href="{% url 'editschoolcontract' i.id%}"><button class="btn btn-dark">Edit</button></a></td>
+              
+            </tr>
+            {% endfor %}
+            <tr >
+                <th colspan="8" class="pt-5">All Contracts</th>
+            </tr>
+
+            {% for i in data %}
+            
+          <tr>
+            <th scope="row">{{i.start_date}}</th>
+            <td>{{i.end_date}}</td>
+            <td>{{i.pick_time}}</td>
+            <td>{{i.drop_time}}</td>
+            <td>{{i.contact_number}}</td>
+            <td>{{i.pick_up_location}}</td>
+            <td>{{i.drop_location}}</td>
+            <td><a href="{% url 'editschoolcontract' i.id%}"><button class="btn btn-dark">Edit</button></a></td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block active %}{%endblock%}
+{% block complaint %}active{%endblock%}
+
+
+{% block content %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-primary">Submit</button>
+    </form>
+
+    <a href="{% url 'deleteschoolcontract' data.id %}"><button class="btn btn-danger my-4">Delete</button></a>
+
+    <script>
+        // document.getElementById('id_start_date').type = 'date'
+        document.getElementById('id_start_date').className = 'form-control'
+        // document.getElementById('id_end_date').type = 'date'
+        document.getElementById('id_end_date').className = 'form-control'
+        document.getElementById('id_pick_time').className = 'form-control'
+        // document.getElementById('id_pick_time').type = 'time'
+        document.getElementById('id_drop_time').className = 'form-control'
+        // document.getElementById('id_drop_time').type = 'time'
+        document.getElementById('id_contact_number').className = 'form-control'
+        document.getElementById('id_pick_up_location').className = 'form-control'
+        document.getElementById('id_drop_location').className = 'form-control'
+    </script>
+{% endblock %}

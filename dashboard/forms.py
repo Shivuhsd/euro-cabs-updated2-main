@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from . models import Fleet, Airports, City, Rates
+from . models import Fleet, Airports, City, Rates, SchoolContract
 import users.models
 
 
@@ -30,3 +30,10 @@ class MyRates(ModelForm):
     class Meta:
         model = Rates
         exclude = ('who_created','airport_name', 'city_name')
+
+
+# Form for School Contract
+class MySchoolContract(ModelForm):
+    class Meta:
+        model = SchoolContract
+        exclude = ('id',)

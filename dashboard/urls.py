@@ -34,4 +34,17 @@ urlpatterns = [
     #Path which sends email to other company
     path('expiry/<str:pk>/<str:email>/', views.ExpiryMail, name='expirymail'),
     path('fleetmail/<str:pk>/', views.FleetMail, name='fleetmail'),
+
+
+    # Path To School Contract
+    path('addschoolcontract/', views.AddSchoolContract, name='addschoolcontract'),
+    path('editschoolcontract/<str:pk>/', views.SchoolContractEdit, name='editschoolcontract'),
+    path('deleteschoolcontract/<str:pk>/', views.SchoolContractDelete, name='deleteschoolcontract'),
+    path('viewcontractall', views.SchoolContractall, name='schoolcontractall'),
+    path('viewcontract/<str:pk>/', views.SchoolContractView, name='viewschoolcontract'),
+
+
+    #Custom Email Sender
+    # path('portmail/', views.PortMail, name='portmail')
+
 ]
