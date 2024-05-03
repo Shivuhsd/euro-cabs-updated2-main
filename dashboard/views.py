@@ -704,7 +704,8 @@ def SchoolContractEdit(request, pk):
 
 
     context = {
-        'form':form
+        'form':form,
+        'data':data
     }
     return render(request, 'admin/schoolcontractedit.html', context)
 
@@ -737,30 +738,6 @@ def SchoolContractall(request):
     }
     return render(request, "admin/schoolcontractall.html", context)
 
-
-
-
-
-
-
-def PortMail(request):
-    if request.method == 'POST':
-        name = request.POST['name']
-        mail = request.POST['mail']
-        message = request.POST['message']
-        proj = request.POST['proj']
-
-        subject = "Someone Has Contacted You"
-
-        mess = "INFO\n\n-------------\nName: " + name + "\n\nSubject: " + proj + "\n\nEmail: " + mail + '\n\nMessage: ' + message + "\n\n" 
-
-        mails = "shivubmdev@gmail.com"
-
-        SendMail(mails, mess, subject)
-
-        return JsonResponse({'status':"ok"})
-    else:
-        return JsonResponse({'status': "no"})
 
 
 

@@ -13,6 +13,8 @@
         <button class="btn btn-primary">Submit</button>
     </form>
 
+    <a href="{% url 'deleteschoolcontract' data.id %}"><button class="btn btn-danger my-4">Delete</button></a>
+
     <script>
         // document.getElementById('id_start_date').type = 'date'
         document.getElementById('id_start_date').className = 'form-control'

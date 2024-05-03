@@ -45,6 +45,6 @@ urlpatterns = [
 
 
     #Custom Email Sender
-    path('portmail/', views.PortMail, name='portmail')
+    # path('portmail/', views.PortMail, name='portmail')
 
 ]
