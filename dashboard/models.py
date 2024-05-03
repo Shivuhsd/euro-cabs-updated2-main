@@ -108,4 +108,22 @@ class ReplyCus(models.Model):
     reply_mes = models.TextField(null = True)
     time_stamp = models.DateTimeField(auto_now_add = True)
 
+
+
+# Model To School Contract
+
+class SchoolContract(models.Model):
+    id = models.UUIDField(primary_key = True, editable = False, default = uuid.uuid4)
+    start_date = models.DateField(blank=False)
+    end_date = models.DateField(blank=False)
+    pick_time = models.TimeField(blank = False)
+    drop_time = models.TimeField(blank = False)
+    contact_number = models.CharField(max_length = 15, blank = False)
+    pick_up_location = models.CharField(max_length =150, blank = False)
+    drop_location = models.CharField(max_length =150, blank = False)
+
+
+    def __str__(self):
+        return self.contact_number
+
     

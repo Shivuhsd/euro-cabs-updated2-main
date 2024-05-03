@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import businessForm, Fleet, ReplyCus, Airports, City, Rates
+from .models import businessForm, Fleet, ReplyCus, Airports, City, Rates, SchoolContract
 
 # Register your models here.
 
@@ -9,3 +9,4 @@ admin.site.register(ReplyCus)
 admin.site.register(Airports)
 admin.site.register(City)
 admin.site.register(Rates)
+admin.site.register(SchoolContract)

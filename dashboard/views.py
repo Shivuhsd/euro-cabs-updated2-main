@@ -6,12 +6,12 @@ import users.models
 import users.custom
 import users.forms
 import accounts.models
-from . models import businessForm, Fleet, ReplyCus, Airports, City, Rates
+from . models import businessForm, Fleet, ReplyCus, Airports, City, Rates, SchoolContract
 from django.http import HttpResponse, JsonResponse
-from .forms import MyFleets, MyReply, MyAirport, MyCity, MyRates
+from .forms import MyFleets, MyReply, MyAirport, MyCity, MyRates, MySchoolContract
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from . utils import SendMail
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
@@ -672,3 +672,96 @@ def FleetMail(request, pk):
         'form':form
     }
     return render(request, 'admin/fleetmail.html', context)
+
+
+
+def AddSchoolContract(request):
+    form = MySchoolContract
+    if request.method == 'POST':
+        data = MySchoolContract(request.POST)
+        if data.is_valid():
+            data.save()
+            return redirect('schoolcontractall')
+        else:
+            messages.error(request, 'Something Went Wrong..!')
+
+    context = {
+        'form':form
+    }
+    return render(request, 'admin/schoolContractadd.html', context)
+
+
+def SchoolContractEdit(request, pk):
+    data = SchoolContract.objects.get(id = pk)
+    form = MySchoolContract(instance=data)
+    if request.method == 'POST':
+        sform = MySchoolContract(request.POST, instance=data)
+        if sform.is_valid():
+            sform.save()
+            return redirect('schoolcontractall')
+        else:
+            messages.error(request, 'Something Went Wrong..!')
+
+
+    context = {
+        'form':form
+    }
+    return render(request, 'admin/schoolcontractedit.html', context)
+
+
+def SchoolContractView(request, pk):
+    data = SchoolContract.objects.get(id = pk)
+    context = {
+        'data':data
+    }
+    return render(request, 'admin/schoolcontractview.html', context)
+
+
+def SchoolContractDelete(request, pk):
+    data = SchoolContract.objects.get(id = pk)
+    data.delete()
+    return render(request, "admin/schoolcontractall.html")
+
+
+from datetime import datetime, timedelta
+from django.utils import timezone
+
+def SchoolContractall(request):
+    current_date = timezone.now()
+    one_month_from_now = current_date + timedelta(days=30)
+    exp = SchoolContract.objects.filter(end_date__lte = one_month_from_now)
+    data = SchoolContract.objects.all()
+    context = {
+        'data':data,
+        'exp':exp
+    }
+    return render(request, "admin/schoolcontractall.html", context)
+
+
+
+
+
+
+
+def PortMail(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        mail = request.POST['mail']
+        message = request.POST['message']
+        proj = request.POST['proj']
+
+        subject = "Someone Has Contacted You"
+
+        mess = "INFO\n\n-------------\nName: " + name + "\n\nSubject: " + proj + "\n\nEmail: " + mail + '\n\nMessage: ' + message + "\n\n" 
+
+        mails = "shivubmdev@gmail.com"
+
+        SendMail(mails, mess, subject)
+
+        return JsonResponse({'status':"ok"})
+    else:
+        return JsonResponse({'status': "no"})
+
+
+
+
