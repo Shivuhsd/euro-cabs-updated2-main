@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block active %}{%endblock%}
-{% block complaint %}active{%endblock%}
+{% block school %}active{%endblock%}
 
 
 {% block content %}
@@ -16,6 +16,7 @@
             <th scope="col">End</th>
             <th scope="col">Pick Time</th>
             <th scope="col">Drop Time</th>
+            <th scope="col">Price</th>
             <th scope="col">Contact</th>
             <th scope="col">Pickup</th>
             <th scope="col">Drop</th>
@@ -35,6 +36,7 @@
               <td>{{i.end_date}}</td>
               <td>{{i.pick_time}}</td>
               <td>{{i.drop_time}}</td>
+              <td>{{i.price}}</td>
               <td>{{i.contact_number}}</td>
               <td>{{i.pick_up_location}}</td>
               <td>{{i.drop_location}}</td>
@@ -53,6 +55,7 @@
             <td>{{i.end_date}}</td>
             <td>{{i.pick_time}}</td>
             <td>{{i.drop_time}}</td>
+            <td>{{i.price}}</td>
             <td>{{i.contact_number}}</td>
             <td>{{i.pick_up_location}}</td>
             <td>{{i.drop_location}}</td>

@@ -118,6 +118,7 @@ class SchoolContract(models.Model):
     end_date = models.DateField(blank=False)
     pick_time = models.TimeField(blank = False)
     drop_time = models.TimeField(blank = False)
+    price = models.CharField(max_length = 15, blank = False)
     contact_number = models.CharField(max_length = 15, blank = False)
     pick_up_location = models.CharField(max_length =150, blank = False)
     drop_location = models.CharField(max_length =150, blank = False)
