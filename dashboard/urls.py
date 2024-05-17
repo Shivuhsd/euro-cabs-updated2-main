@@ -43,6 +43,8 @@ urlpatterns = [
     path('viewcontractall', views.SchoolContractall, name='schoolcontractall'),
     path('viewcontract/<str:pk>/', views.SchoolContractView, name='viewschoolcontract'),
 
+    path('contractreport/<str:pk>/', views.ContractReport, name='contractreport'),
+
 
     #Custom Email Sender
     # path('portmail/', views.PortMail, name='portmail')

@@ -114,6 +114,7 @@ class ReplyCus(models.Model):
 
 class SchoolContract(models.Model):
     id = models.UUIDField(primary_key = True, editable = False, default = uuid.uuid4)
+    contract_school_name = models.CharField(max_length = 100, blank = False, null = True)
     start_date = models.DateField(blank=False)
     end_date = models.DateField(blank=False)
     pick_time = models.TimeField(blank = False)
@@ -125,6 +126,19 @@ class SchoolContract(models.Model):
 
 
     def __str__(self):
-        return self.contact_number
+        return self.contract_school_name
+
+
+
+# Model to Track Daily Updates of School Contract
+    
+class TrackSchoolContract(models.Model):
+    id = models.UUIDField(primary_key = True, editable = False, default = uuid.uuid4)
+    contract = models.ForeignKey(SchoolContract, on_delete = models.PROTECT)
+    date = models.DateField(blank = True, null = True)
+    status = models.CharField(max_length = 20, blank = False)
+    time_stamp = models.DateTimeField(auto_now_add = True)
 
     
+    def __str__(self):
+        return str(self.contract.id)
