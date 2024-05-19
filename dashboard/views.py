@@ -6,12 +6,12 @@ import users.models
 import users.custom
 import users.forms
 import accounts.models
-from . models import businessForm, Fleet, ReplyCus, Airports, City, Rates, SchoolContract
+from . models import businessForm, Fleet, ReplyCus, Airports, City, Rates, SchoolContract, TrackSchoolContract
 from django.http import HttpResponse, JsonResponse
 from .forms import MyFleets, MyReply, MyAirport, MyCity, MyRates, MySchoolContract
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone, date
 from . utils import SendMail
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
@@ -19,7 +19,8 @@ from django.template.loader import render_to_string
 import os
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-
+import calendar
+from openpyxl import Workbook
 
 # Create your views here.
 
@@ -488,6 +489,9 @@ def ManageFleet(request):
     return render(request, 'admin/managefleet.html', context)
 
 
+
+
+
 def EditFleet(request, pk):
     if request.user.is_superuser:
 
@@ -710,10 +714,97 @@ def SchoolContractEdit(request, pk):
     return render(request, 'admin/schoolcontractedit.html', context)
 
 
+class EventCalendar(calendar.HTMLCalendar):
+    def __init__(self, events):
+        super().__init__()
+        self.events = events
+
+    def formatday(self, day, weekday, events):
+        events_from_day = events.filter(date__day=day)
+        events_html = "<ul>"
+        status_color = None
+
+        for event in events_from_day:
+            events_html += f"<h4>{event.status}</h4>"
+            if event.status == 'Completed':
+                status_color = 'green'
+            elif event.status == 'No Fare':
+                status_color = 'red'
+            elif event.status == 'No School':
+                status_color = 'purple'
+
+        events_html += "</ul>"
+
+        if day == 0:
+            return '<td class="noday">&nbsp;</td>'  # day outside month
+        else:
+            if status_color:
+                return f'<td class="{self.cssclasses[weekday]}" style="background-color: {status_color}">{day}{events_html}</td>'
+            return f'<td class="{self.cssclasses[weekday]}">{day}{events_html}</td>'
+
+    def formatmonth(self, theyear, themonth, withyear=True):
+        events = self.events.filter(date__year=theyear, date__month=themonth)
+        v = []
+        a = v.append
+        a('<table border="0" cellpadding="0" cellspacing="0" class="month">')
+        a('\n')
+        a(self.formatmonthname(theyear, themonth, withyear=withyear))
+        a('\n')
+        a(self.formatweekheader())
+        a('\n')
+        for week in self.monthdays2calendar(theyear, themonth):
+            a(self.formatweek(week, events))
+            a('\n')
+        a('</table>')
+        a('\n')
+        return ''.join(v)
+
+    def formatweek(self, theweek, events):
+        s = ''.join(self.formatday(d, wd, events) for (d, wd) in theweek)
+        return f'<tr>{s}</tr>'
+
+# def calendar_view(request, year, month):
+#     year = int(year)
+#     month = int(month)
+#     cal = EventCalendar(TrackSchoolContract.objects.all())
+#     html_calendar = cal.formatmonth(year, month)
+#     return render(request, 'calendarapp/calendar.html', {'calendar': html_calendar, 'year': year, 'month': month})
+
+
+# View To Show The School Contract Details
+
 def SchoolContractView(request, pk):
+    today = date.today()
+    formatted_today = today.strftime('%Y-%m-%d')
     data = SchoolContract.objects.get(id = pk)
+
+    if request.method == 'POST':
+        status = request.POST['status']
+        dat = request.POST['date']
+        check_date = datetime.strptime(dat, '%Y-%m-%d').date()
+
+        check = TrackSchoolContract.objects.filter(date=check_date).exists()
+
+        if check:
+            messages.error(request, "Already Exists")
+        else:
+            try:
+                form = TrackSchoolContract(contract = data, date = dat, status = status)
+                form.save()
+            except:
+                messages.error(request, "Something Went Wrong..")
+
+    now = datetime.now()
+    year = int(now.year)
+    month = int(now.month)
+    cal = EventCalendar(TrackSchoolContract.objects.all())
+    html_calendar = cal.formatmonth(year, month)
     context = {
-        'data':data
+        'data':data,
+        'today': formatted_today,
+        'calendar': html_calendar,
+        'year': year, 
+        'month': month
     }
     return render(request, 'admin/schoolcontractview.html', context)
 
@@ -737,6 +828,72 @@ def SchoolContractall(request):
         'exp':exp
     }
     return render(request, "admin/schoolcontractall.html", context)
+
+
+
+# View to Create a Contract Report in xlsl
+
+def ContractReport(request, pk):
+    if request.method == "POST":
+        year = int(request.POST['year'])
+        month = int(request.POST['month'])
+
+    # Filter contracts by the specific month
+        contract = TrackSchoolContract.objects.filter(
+            contract = pk,
+            date__year=year,
+            date__month=month
+        ).exists()
+
+        if contract:
+            contracts = TrackSchoolContract.objects.filter(
+            contract = pk,
+            date__year=year,
+            date__month=month
+            )
+            
+            wb = Workbook()
+            ws = wb.active
+            ws.title = f"Contracts {year}-{month:02d}"
+
+            # Write headers
+            headers = ['Contract School Name', 'Date', 'Status']
+            ws.append(headers)
+
+            # Write data
+            for contract in contracts:
+                ws.append([
+                    str(contract.contract),  # Adjust if you need to access specific fields
+                    contract.date.strftime('%Y-%m-%d') if contract.date else '',
+                    contract.status,
+                    # contract.time_stamp.strftime('%Y-%m-%d %H:%M:%S')
+                ])
+
+            # Prepare the response
+            response = HttpResponse(
+                content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            )
+            response['Content-Disposition'] = f'attachment; filename="contracts_{year}_{month:02d}.xlsx"'
+
+            # Save the workbook to the response
+            wb.save(response)
+
+            return response
+        else:
+            messages.error(request, "Data Not Found")
+            return redirect(reverse('viewschoolcontract', args=[pk]))
+    else:
+        messages.error(request, "Data Not Found")
+        return HttpResponse("nothing")
+
+
+        # Create an Excel workbook and sheet
+        
+
+
+
+
+
 
 
 

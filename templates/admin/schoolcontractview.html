@@ -2,9 +2,140 @@
 {% load static %}
 
 {% block active %}{%endblock%}
-{% block complaint %}active{%endblock%}
+{% block school %}active{%endblock%}
 
 
 {% block content %}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        text-align: left;
+        padding: 20px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .mon, .tue, .wed, .thu, .fri, .sat, .sun {
+        width: 14%;
+        vertical-align: top;
+    }
+    .noday {
+        background-color: #eee;
+    }
+</style>
+
+<div class="container shadow p-3">
+    <div class="h4 my-4">Daily Update</div>
+    <h5><b>Contract Name: </b> {{data.contract_school_name}}</h5>
+    <p><b>Phone Number: </b> {{data.contact_number}}</p>
+    <form class="row g-3" method="POST">
+        {% csrf_token %}
+
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>
+                     <div class="col-auto">
+                    <label for="staticEmail2" class="visually-hidden">Date</label>
+                    <input type="date" name="date" class="form-control-plaintext" id="staticEmail2" value="{{today}}" >
+                  </div>
+                </td>
+                <td>
+                    <div class="col-auto">
+                        <label for="inputPassword2" class="visually-hidden">Password</label>
+                        <select name="status" id="" class="form-control">
+                          <option value="Completed">Completed</option>
+                          <option value="No Fare">No Fare</option>
+                          <option value="No School">No School</option>
+                        </select>
+                      </div>
+                </td>
+                <td>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Update</button>
+                      </div>
+                </td>
+            </tr>
+        </table>
+
+        
+        
+        
+       
+    </form>
+    <a href="{% url 'editschoolcontract' data.id%}"><button class="btn btn-dark my-3">Update Contract</button></a>
+
+    <br><br>
+    <p><b>Select Year and Month To Generate The Report</b></p>
+    <form action="{% url 'contractreport' data.id %}" method="POST">
+        {% csrf_token %}
+        <label for="year">Year</label>
+        <select name="year" id="" class="form-control">
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+        </select>
+        <br><br>
+
+        <label for="month">Month</label>
+        <select name="month" id="" class="form-control">
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+        <button class="btn btn-dark my-3">Generate Report</button></a>
+
+
+    </form>
+
+
+</div>
+
+
+<div class="container my-4 shadow-lg p-3" id="calendar">
+
+<h1>Calendar for {{ year }}-{{ month }}</h1>
+<div>{{ calendar|safe }}</div>
+</div>
+
+<script>
+    window.onload = function() {
+      const tableContainer = document.getElementById("calendar"); // Get the table container
+      const table = tableContainer.getElementsByTagName("table")[0]; // Get the table element
     
+      // Loop through all table rows (<tr>)
+      for (let i = 0; i < table.rows.length; i++) {
+        const row = table.rows[i];
+    
+        // Loop through all cells (<td>) in the current row
+        for (let j = 0; j < row.cells.length; j++) {
+          const cell = row.cells[j];
+    
+          // Check if cell content contains "nofare" (ignoring case)
+          if (cell.textContent.toLowerCase().includes("NoFare")) {
+            cell.style.backgroundColor = "red"; // Set background color to red
+          }
+        }
+      }
+    };
+</script>
+ 
 {% endblock %}
